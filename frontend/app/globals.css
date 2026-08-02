@@ -2,85 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 6%;
-    --card-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --primary: 263.4 70% 50.4%;
-    --primary-foreground: 210 20% 98%;
-  }
-
-  body {
-    background-color: #09090b;
-    color: #f4f4f5;
-    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
-    overflow-x: hidden;
-  }
+:root {
+  --bg-primary: #F7F3ED;
+  --bg-secondary: #EFEBE4;
+  --bg-card: #FAF8F5;
+  --text-primary: #2C2A29;
+  --text-muted: #787470;
+  --accent-sage: #5A6B47;
+  --accent-sage-bg: #EAEFE3;
+  --accent-clay: #7A5744;
+  --accent-clay-bg: #F4EBE6;
+  --border-subtle: rgba(44, 42, 41, 0.08);
 }
 
-.glass-panel {
-  background: rgba(18, 18, 22, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(90, 107, 71, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(122, 87, 68, 0.05) 0%, transparent 40%);
+  background-attachment: fixed;
 }
 
-.glass-card {
-  background: rgba(24, 24, 27, 0.6);
+/* Tactile Tactile Paper & Card Motion Elevations */
+.hero-card {
+  background: rgba(250, 248, 245, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 40px -6px rgba(44, 42, 41, 0.05), 0 4px 14px -2px rgba(44, 42, 41, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.workspace-panel {
+  background: #FAF8F5;
+  border: 1px solid rgba(44, 42, 41, 0.08);
+  box-shadow: 0 8px 24px -4px rgba(44, 42, 41, 0.03);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.workspace-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -4px rgba(44, 42, 41, 0.06);
+}
+
+.floating-badge {
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.25s ease-in-out;
+  border: 1px solid rgba(44, 42, 41, 0.08);
+  box-shadow: 0 6px 20px rgba(44, 42, 41, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card:hover {
-  border-color: rgba(168, 85, 247, 0.3);
-  box-shadow: 0 10px 30px -10px rgba(168, 85, 247, 0.2);
+.floating-badge:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(44, 42, 41, 0.1);
 }
 
-.glow-gradient {
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+/* Pulsing Agent Node Effects */
+.step-node-active {
+  background: #FAF8F5;
+  border: 2px solid #5A6B47;
+  box-shadow: 0 0 0 6px rgba(90, 107, 71, 0.15);
+  animation: pulseNode 2s infinite ease-in-out;
 }
 
-.glow-text {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #38bdf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@keyframes pulseNode {
+  0% { box-shadow: 0 0 0 0 rgba(90, 107, 71, 0.3); }
+  70% { box-shadow: 0 0 0 8px rgba(90, 107, 71, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(90, 107, 71, 0); }
 }
 
-.pulse-glow {
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.35);
-  animation: pulseGlow 2.5s infinite alternate;
-}
-
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
-  }
-  100% {
-    box-shadow: 0 0 35px rgba(168, 85, 247, 0.65);
-  }
-}
-
-/* Custom Scrollbars */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: #EFEBE4;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #C8C2B8;
   border-radius: 9999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #5A6B47;
 }

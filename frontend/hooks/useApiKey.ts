@@ -2,27 +2,26 @@
 
 import { useState, useEffect } from "react";
 
-export interface ApiKeysState {
-  openai_api_key: string;
-  anthropic_api_key: string;
-  gemini_api_key: string;
-  tavily_api_key: string;
-  provider: string;
+export interface ApiKeys {
+  openaiKey?: string;
+  anthropicKey?: string;
+  geminiKey?: string;
+  tavilyKey?: string;
+  provider: "openai" | "anthropic" | "gemini" | "mock";
 }
 
 const STORAGE_KEY = "zenith_api_keys";
 
-const defaultKeys: ApiKeysState = {
-  openai_api_key: "",
-  anthropic_api_key: "",
-  gemini_api_key: "",
-  tavily_api_key: "",
+const DEFAULT_KEYS: ApiKeys = {
+  openaiKey: "",
+  anthropicKey: "",
+  geminiKey: "",
+  tavilyKey: "",
   provider: "mock",
 };
 
 export function useApiKey() {
-  const [keys, setKeys] = useState<ApiKeysState>(defaultKeys);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [keys, setKeys] = useState<ApiKeys>(DEFAULT_KEYS);
 
   useEffect(() => {
     try {
@@ -31,20 +30,18 @@ export function useApiKey() {
         setKeys(JSON.parse(stored));
       }
     } catch (e) {
-      console.error("Error reading API keys from localStorage", e);
-    } finally {
-      setIsLoaded(true);
+      console.error("Failed to load API keys", e);
     }
   }, []);
 
-  const saveKeys = (newKeys: ApiKeysState) => {
+  const saveKeys = (newKeys: ApiKeys) => {
     setKeys(newKeys);
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newKeys));
     } catch (e) {
-      console.error("Error saving API keys", e);
+      console.error("Failed to save API keys", e);
     }
   };
 
-  return { keys, saveKeys, isLoaded };
+  return { keys, saveKeys };
 }

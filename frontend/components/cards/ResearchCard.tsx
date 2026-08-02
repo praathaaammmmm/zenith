@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp, AlertTriangle, Lightbulb, PieChart, ShieldAlert } from "lucide-react";
+import { PieChart, TrendingUp, Lightbulb, AlertTriangle } from "lucide-react";
 import { ResearchOutput } from "@/lib/types";
 
 interface ResearchCardProps {
@@ -9,53 +9,51 @@ interface ResearchCardProps {
 
 export function ResearchCard({ data }: ResearchCardProps) {
   return (
-    <div className="glass-card rounded-2xl p-6 border border-zinc-800 shadow-xl space-y-6">
-      
+    <div className="paper-card rounded-2xl p-6 border border-black/[0.08] shadow-md space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+      <div className="flex items-center justify-between border-b border-black/[0.06] pb-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+          <div className="p-2.5 rounded-xl bg-[#A9BCD0]/20 text-[#2B425B]">
             <PieChart className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-white">Market Research & Sizing</h3>
-            <p className="text-xs text-zinc-400">Synthesized by Research Agent</p>
+            <h3 className="text-base font-bold text-[#2F2F2F]">Market Research & Sizing Canvas</h3>
+            <p className="text-xs text-[#666666]">Synthesized by Research Lead Agent</p>
           </div>
         </div>
-        <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-300 border border-indigo-500/20">
+        <span className="tag-blue px-3 py-1 rounded-full text-xs font-bold">
           Step 01
         </span>
       </div>
 
       {/* Market Overview */}
       <div>
-        <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Market Overview</h4>
-        <p className="text-sm text-zinc-200 leading-relaxed bg-zinc-900/50 p-4 rounded-xl border border-zinc-800/60">
+        <h4 className="text-xs font-extrabold text-[#666666] uppercase tracking-wider mb-2">Market Overview</h4>
+        <p className="text-sm text-[#2F2F2F] leading-relaxed bg-[#F5EFE7]/60 p-4 rounded-xl border border-black/[0.05]">
           {data.market_overview}
         </p>
       </div>
 
-      {/* Market Size Gauge */}
-      <div className="rounded-xl bg-gradient-to-r from-indigo-950/40 via-purple-950/40 to-zinc-900/60 border border-indigo-500/30 p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <TrendingUp className="h-4 w-4 text-emerald-400" />
-          <h4 className="text-xs font-bold text-indigo-300 uppercase tracking-wider">Market Size Estimation (TAM / SAM / SOM)</h4>
+      {/* Market Size TAM SAM SOM */}
+      <div className="rounded-xl bg-[#EAD7C3]/30 border border-[#DDBEA9]/60 p-4 space-y-1">
+        <div className="flex items-center gap-2">
+          <TrendingUp className="h-4 w-4 text-[#6E4935]" />
+          <h4 className="text-xs font-bold text-[#4A3A2A] uppercase tracking-wider">Market Size Estimation (TAM / SAM / SOM)</h4>
         </div>
-        <p className="text-xs text-zinc-300 leading-normal">{data.market_size}</p>
+        <p className="text-xs text-[#2F2F2F] leading-relaxed">{data.market_size}</p>
       </div>
 
-      {/* Trends & Opportunities Grid */}
+      {/* Grid of Trends & Opportunities */}
       <div className="grid md:grid-cols-2 gap-4">
         {/* Industry Trends */}
-        <div className="rounded-xl bg-zinc-900/60 p-4 border border-zinc-800">
-          <div className="flex items-center gap-2 mb-3">
-            <TrendingUp className="h-4 w-4 text-purple-400" />
-            <h4 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">Key Industry Trends</h4>
-          </div>
+        <div className="rounded-xl bg-[#FFFDF9] p-4 border border-black/[0.08] shadow-sm">
+          <h4 className="text-xs font-bold text-[#2F2F2F] uppercase tracking-wider mb-3 flex items-center gap-2">
+            <TrendingUp className="h-4 w-4 text-[#3B4D28]" /> Key Industry Trends
+          </h4>
           <ul className="space-y-2">
             {data.industry_trends.map((trend, i) => (
-              <li key={i} className="text-xs text-zinc-300 flex items-start gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0"></span>
+              <li key={i} className="text-xs text-[#2F2F2F] flex items-start gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#A3B18A] mt-1.5 flex-shrink-0" />
                 <span>{trend}</span>
               </li>
             ))}
@@ -63,15 +61,14 @@ export function ResearchCard({ data }: ResearchCardProps) {
         </div>
 
         {/* Opportunities */}
-        <div className="rounded-xl bg-zinc-900/60 p-4 border border-zinc-800">
-          <div className="flex items-center gap-2 mb-3">
-            <Lightbulb className="h-4 w-4 text-amber-400" />
-            <h4 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">High-Potential Opportunities</h4>
-          </div>
+        <div className="rounded-xl bg-[#FFFDF9] p-4 border border-black/[0.08] shadow-sm">
+          <h4 className="text-xs font-bold text-[#2F2F2F] uppercase tracking-wider mb-3 flex items-center gap-2">
+            <Lightbulb className="h-4 w-4 text-[#6E4935]" /> Strategic Opportunities
+          </h4>
           <ul className="space-y-2">
             {data.opportunities.map((opp, i) => (
-              <li key={i} className="text-xs text-zinc-300 flex items-start gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0"></span>
+              <li key={i} className="text-xs text-[#2F2F2F] flex items-start gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#DDBEA9] mt-1.5 flex-shrink-0" />
                 <span>{opp}</span>
               </li>
             ))}
@@ -80,21 +77,18 @@ export function ResearchCard({ data }: ResearchCardProps) {
       </div>
 
       {/* Market Risks */}
-      <div className="rounded-xl bg-rose-950/20 border border-rose-900/40 p-4">
-        <div className="flex items-center gap-2 mb-3">
-          <ShieldAlert className="h-4 w-4 text-rose-400" />
-          <h4 className="text-xs font-bold text-rose-300 uppercase tracking-wider">Market & Regulatory Risks</h4>
-        </div>
+      <div className="rounded-xl bg-[#F5EFE7] border border-black/[0.06] p-4">
+        <h4 className="text-xs font-bold text-[#666666] uppercase tracking-wider mb-2 flex items-center gap-2">
+          <AlertTriangle className="h-4 w-4 text-[#6E4935]" /> Industry & Regulatory Risks
+        </h4>
         <div className="grid sm:grid-cols-2 gap-2">
           {data.risks.map((risk, i) => (
-            <div key={i} className="flex items-start gap-2 text-xs text-rose-200 bg-rose-950/40 p-2.5 rounded-lg border border-rose-900/30">
-              <AlertTriangle className="h-3.5 w-3.5 text-rose-400 mt-0.5 flex-shrink-0" />
-              <span>{risk}</span>
+            <div key={i} className="text-xs text-[#2F2F2F] bg-[#FFFDF9] p-2.5 rounded-lg border border-black/[0.06] shadow-sm">
+              • {risk}
             </div>
           ))}
         </div>
       </div>
-
     </div>
   );
 }
