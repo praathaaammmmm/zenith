@@ -263,8 +263,18 @@ export default function Home() {
           {activeTab === "knowledge" && <KnowledgeBaseTab />}
           {activeTab === "playbooks" && <PlaybooksTab />}
           {activeTab === "team" && <TeamTab />}
+          {activeTab === "reports" && (
+            state.report ? <ReportCard data={state.report} /> : (
+              <section className="rounded-3xl border border-black/[0.06] bg-[#FAF8F5] p-8 sm:p-12 text-center shadow-sm">
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#5A6B47]">Founder reports</p>
+                <h3 className="mt-3 text-2xl font-extrabold text-[#2C2A29]">Your next strategy memo starts with an idea.</h3>
+                <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-[#787470]">Run a validation from the Workspace or Strategy Board and your finished founder report will appear here, ready to export.</p>
+                <button onClick={() => setActiveTab("strategy")} className="mt-6 rounded-xl bg-[#5A6B47] px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#495738]">Open Strategy Board</button>
+              </section>
+            )
+          )}
 
-          {activeTab === "workspace" && (
+          {(activeTab === "workspace" || activeTab === "strategy") && (
             <>
               {/* Hero Section */}
               <HeroSection onGenerate={handleGenerate} isProcessing={state.isProcessing} />
