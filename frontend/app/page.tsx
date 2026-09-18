@@ -26,7 +26,7 @@ import { InterviewCard } from "@/components/cards/InterviewCard";
 import { InsightCard } from "@/components/cards/InsightCard";
 import { MVPPlanCard } from "@/components/cards/MVPPlanCard";
 import { ReportCard } from "@/components/cards/ReportCard";
-import { startOrchestration, getSSEStreamUrl } from "@/lib/api";
+import { createDemoWorkflow } from "@/lib/demo";
 import { useApiKey } from "@/hooks/useApiKey";
 import { OrchestratorState, AgentStepStatus } from "@/lib/types";
 import { AlertCircle, RotateCcw } from "lucide-react";
@@ -108,41 +108,13 @@ export default function Home() {
     });
 
     try {
-      const config: Record<string, any> = {
-        provider: keys.provider,
-      };
-      if (keys.provider === "openai" && keys.openaiKey) config.openai_api_key = keys.openaiKey;
-      if (keys.provider === "gemini" && keys.geminiKey) config.gemini_api_key = keys.geminiKey;
-      if (keys.provider === "anthropic" && keys.anthropicKey) config.anthropic_api_key = keys.anthropicKey;
-      if (keys.tavilyKey) config.tavily_api_key = keys.tavilyKey;
-
-      const response = await startOrchestration(idea, config);
-      const sessionId = response.session_id;
-
+      const sessionId = crypto.randomUUID();
       setState((prev) => ({ ...prev, sessionId }));
 
-      const sseUrl = getSSEStreamUrl(sessionId);
-      const es = new EventSource(sseUrl);
-      eventSourceRef.current = es;
-
-      es.onmessage = (event) => {
-        try {
-          const payload = JSON.parse(event.data);
-          handleSSEMessage(payload);
-        } catch (e) {
-          console.error("Failed to parse SSE payload", e);
-        }
-      };
-
-      es.onerror = (err) => {
-        console.error("SSE stream error", err);
-        es.close();
-        setState((prev) => ({
-          ...prev,
-          isProcessing: false,
-          error: prev.report ? null : "Connection lost with Zenith backend strategy engine. Please retry.",
-        }));
-      };
+      for (const event of createDemoWorkflow(idea)) {
+        handleSSEMessage(event);
+        await new Promise((resolve) => window.setTimeout(resolve, event.status === "running" ? 260 : 420));
+      }
     } catch (err: any) {
       setState((prev) => ({
         ...prev,
