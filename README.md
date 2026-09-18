@@ -10,6 +10,12 @@
 
 ---
 
+## 🌐 Live Demo
+
+Frontend: [frontend-praathaaammmmm.vercel.app](https://frontend-praathaaammmmm.vercel.app)
+
+---
+
 ## ✨ Overview
 
 Zenith is an AI-powered startup intelligence platform that transforms a simple business idea into structured insights using a team of specialized AI agents.
