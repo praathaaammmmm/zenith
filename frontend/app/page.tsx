@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { WorkflowStreamer } from "@/components/WorkflowStreamer";
 import { SettingsModal } from "@/components/SettingsModal";
 import { CustomCursor } from "@/components/CustomCursor";
+import { StrategyBoard } from "@/components/StrategyBoard";
 import { 
   LiveActivityFeed, 
   PersonasPreviewCard, 
@@ -263,6 +264,7 @@ export default function Home() {
           {activeTab === "knowledge" && <KnowledgeBaseTab />}
           {activeTab === "playbooks" && <PlaybooksTab />}
           {activeTab === "team" && <TeamTab />}
+          {activeTab === "strategy" && <StrategyBoard report={state.report} plan={state.mvpPlan} onStartValidation={() => setActiveTab("workspace")} />}
           {activeTab === "reports" && (
             state.report ? <ReportCard data={state.report} /> : (
               <section className="rounded-3xl border border-black/[0.06] bg-[#FAF8F5] p-8 sm:p-12 text-center shadow-sm">
@@ -274,7 +276,7 @@ export default function Home() {
             )
           )}
 
-          {(activeTab === "workspace" || activeTab === "strategy") && (
+          {activeTab === "workspace" && (
             <>
               {/* Hero Section */}
               <HeroSection onGenerate={handleGenerate} isProcessing={state.isProcessing} />
